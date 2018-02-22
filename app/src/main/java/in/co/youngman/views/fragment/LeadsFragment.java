@@ -11,11 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,15 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.youngman.R;
-import in.co.youngman.adapters.LeadsAdapter;
 import in.co.youngman.adapters.RecyclerViewAdapter;
 import in.co.youngman.interfaces.LeadsInterfaceMVP;
-import in.co.youngman.pojo.Answer;
-import in.co.youngman.pojo.Question;
+import in.co.youngman.pojo.Leads;
 import in.co.youngman.presenters.LeadsPresenter;
 import in.co.youngman.rest.ListWrapper;
-import in.co.youngman.rest.StackOverflowAPI;
-import okhttp3.ResponseBody;
+import in.co.youngman.rest.LeadsAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,9 +47,8 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
     private Button authenticateButton;
 
-    private Spinner questionsSpinner;
     private RecyclerView recyclerView;
-    private StackOverflowAPI stackoverflowAPI;
+    private LeadsAPI leadsAPI;
 
 
     public LeadsFragment() {
@@ -105,19 +97,6 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
     private void createUI(View view) {
 
-        questionsSpinner = (Spinner) view.findViewById(R.id.questions_spinner);
-        questionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Question question = (Question) parent.getAdapter().getItem(position);
-                stackoverflowAPI.getAnswersForQuestion(question.questionId).enqueue(answersCallback);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         authenticateButton = (Button) view.findViewById(R.id.authenticate_button);
 
 
@@ -127,7 +106,7 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         createStackoverflowAPI();
-        stackoverflowAPI.getQuestions().enqueue(questionsCallback);
+        leadsAPI.getLeads().enqueue(leadsCallback);
 
        // recycler.setItemAnimator(new DefaultItemAnimator());
 
@@ -145,66 +124,35 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(StackOverflowAPI.BASE_URL)
+                .baseUrl(LeadsAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        stackoverflowAPI = retrofit.create(StackOverflowAPI.class);
+        leadsAPI = retrofit.create(LeadsAPI.class);
     }
 
 
-    Callback<ListWrapper<Question>> questionsCallback = new Callback<ListWrapper<Question>>() {
+    Callback<ListWrapper<Leads>> leadsCallback = new Callback<ListWrapper<Leads>>() {
         @Override
-        public void onResponse(Call<ListWrapper<Question>> call, Response<ListWrapper<Question>> response) {
+        public void onResponse(Call<ListWrapper<Leads>> call, Response<ListWrapper<Leads>> response) {
             if (response.isSuccessful()) {
-                ListWrapper<Question> questions = response.body();
-                ArrayAdapter<Question> arrayAdapter = new ArrayAdapter<Question>(getContext(), android.R.layout.simple_spinner_dropdown_item, questions.items);
-                questionsSpinner.setAdapter(arrayAdapter);
+                ListWrapper<Leads> questions = response.body();
+                List<Leads> data = new ArrayList<>();
+                data.addAll(questions.data);
+
+               getLeads(data);
             } else {
                 Log.d("QuestionsCallback", "Code: " + response.code() + " Message: " + response.message());
             }
         }
 
         @Override
-        public void onFailure(Call<ListWrapper<Question>> call, Throwable t) {
+        public void onFailure(Call<ListWrapper<Leads>> call, Throwable t) {
             t.printStackTrace();
         }
     };
 
-    Callback<ListWrapper<Answer>> answersCallback = new Callback<ListWrapper<Answer>>() {
-        @Override
-        public void onResponse(Call<ListWrapper<Answer>> call, Response<ListWrapper<Answer>> response) {
-            if (response.isSuccessful()) {
-                List<Answer> data = new ArrayList<>();
-                data.addAll(response.body().items);
-                recyclerView.setAdapter(new RecyclerViewAdapter(data));
-            } else {
-                Log.d("QuestionsCallback", "Code: " + response.code() + " Message: " + response.message());
-            }
-        }
 
-        @Override
-        public void onFailure(Call<ListWrapper<Answer>> call, Throwable t) {
-            t.printStackTrace();
-        }
-    };
-
-    Callback<ResponseBody> upvoteCallback = new Callback<ResponseBody>() {
-        @Override
-        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            if (response.isSuccessful()) {
-                Toast.makeText(getContext(), "Upvote successful", Toast.LENGTH_LONG).show();
-            } else {
-                Log.d("QuestionsCallback", "Code: " + response.code() + " Message: " + response.message());
-                Toast.makeText(getContext(), "You already upvoted this answer", Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            t.printStackTrace();
-        }
-    };
 
     @Override
     public void onDestroy() {
@@ -232,8 +180,8 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
     }
 
     @Override
-    public void getLeads() {
-
+    public void getLeads(List<Leads> data) {
+        recyclerView.setAdapter(new RecyclerViewAdapter(data));
     }
 
     @Override

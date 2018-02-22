@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import in.co.youngman.pojo.Answer;
+import in.co.youngman.pojo.Leads;
 
 
 /**
@@ -16,7 +16,7 @@ import in.co.youngman.pojo.Answer;
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private List<Answer> data;
+    private List<Leads> data;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(List<Answer> data) {
+    public RecyclerViewAdapter(List<Leads> data) {
         this.data = data;
     }
 
@@ -41,9 +41,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
-        Answer answer = ((Answer) data.get(position));
-        holder.text.setText(answer.toString());
-        holder.itemView.setTag(answer.answerId);
+        Leads answer = ((Leads) data.get(position));
+        holder.text.setText(answer.company_name);
+        holder.itemView.setTag(answer.questionId);
     }
 
     @Override

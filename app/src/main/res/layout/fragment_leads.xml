@@ -13,11 +13,6 @@
         android:orientation="vertical"
         tools:context="com.vogella.android.stackoverflow.MainActivity">
 
-        <Spinner
-            android:id="@+id/questions_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"

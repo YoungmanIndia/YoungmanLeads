@@ -4,7 +4,6 @@ import java.util.List;
 
 import in.co.youngman.interfaces.LeadsInterfaceMVP;
 import in.co.youngman.models.LeadsModel;
-import in.co.youngman.pojo.LeadsResponse;
 import in.co.youngman.views.fragment.LeadsFragment;
 
 /**
@@ -33,8 +32,4 @@ public class LeadsPresenter implements LeadsInterfaceMVP.Presenter {
         leadsView = null;
     }
 
-    @Override
-    public void getChildren(List<LeadsResponse> leadsResponses) {
-
-    }
 }
