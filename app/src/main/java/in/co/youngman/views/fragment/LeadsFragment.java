@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.youngman.R;
-import in.co.youngman.adapters.RecyclerViewAdapter;
+import in.co.youngman.adapters.LeadsAdapter;
 import in.co.youngman.interfaces.LeadsInterfaceMVP;
 import in.co.youngman.pojo.Leads;
 import in.co.youngman.presenters.LeadsPresenter;
@@ -181,7 +181,7 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
     @Override
     public void getLeads(List<Leads> data) {
-        recyclerView.setAdapter(new RecyclerViewAdapter(data));
+        recyclerView.setAdapter(new LeadsAdapter(data, getContext()));
     }
 
     @Override
