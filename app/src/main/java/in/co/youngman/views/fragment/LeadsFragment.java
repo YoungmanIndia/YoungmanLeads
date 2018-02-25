@@ -24,7 +24,6 @@ import in.co.youngman.R;
 import in.co.youngman.adapters.LeadsAdapter;
 import in.co.youngman.interfaces.LeadsInterfaceMVP;
 import in.co.youngman.pojo.Leads;
-import in.co.youngman.presenters.LeadsPresenter;
 import in.co.youngman.rest.ListWrapper;
 import in.co.youngman.rest.LeadsAPI;
 import retrofit2.Call;
@@ -41,8 +40,6 @@ import static android.app.Activity.RESULT_OK;
 public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, View.OnClickListener{
     private static final String TAG = LeadsFragment.class.getSimpleName();
 
-    private final static String API_KEY = "";
-    private LeadsPresenter presenter;
     private String token;
 
     private Button authenticateButton;
@@ -83,8 +80,6 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
     private void fillUI() {
 
-
-
     }
 
     @Override
@@ -96,29 +91,17 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
     }
 
     private void createUI(View view) {
-
         authenticateButton = (Button) view.findViewById(R.id.authenticate_button);
-
-
 
         recyclerView = view.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        createStackoverflowAPI();
+        createLeadsAPI();
         leadsAPI.getLeads().enqueue(leadsCallback);
-
-       // recycler.setItemAnimator(new DefaultItemAnimator());
-
-       // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
-
-        //presenter = new LeadsPresenter(this);
-        //presenter.request();
-
-
     }
 
-    private void createStackoverflowAPI() {
+    private void createLeadsAPI() {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();

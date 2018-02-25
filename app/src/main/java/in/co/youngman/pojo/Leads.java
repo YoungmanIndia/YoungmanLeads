@@ -11,10 +11,17 @@ public class Leads {
     public String body;
 
     @SerializedName("id")
-    public String questionId;
+    public String leadId;
 
     @Override
     public String toString() {
         return(company_name);
     }
+
+    @SerializedName("email")
+    public String email;
+
+    @SerializedName("stage")
+    public String stage;
 }
+

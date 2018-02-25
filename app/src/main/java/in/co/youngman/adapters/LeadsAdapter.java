@@ -47,12 +47,13 @@ public class LeadsAdapter extends RecyclerView.Adapter<LeadsAdapter.ViewHolder> 
     public void onBindViewHolder(LeadsAdapter.ViewHolder holder, int position) {
         final Leads answer = ((Leads) data.get(position));
         holder.text.setText(answer.company_name);
-        holder.itemView.setTag(answer.questionId);
+        holder.itemView.setTag(answer.leadId);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(context, LeadsDetail.class);
-                intent.putExtra(LeadsDetail.EXTRA_LEAD_ID, answer.questionId);
+                intent.putExtra(LeadsDetail.EXTRA_LEAD_ID, answer.leadId);
                 intent.putExtra(LeadsDetail.EXTRA_LEAD_NAME, answer.company_name);
                 context.startActivity(intent);
             }

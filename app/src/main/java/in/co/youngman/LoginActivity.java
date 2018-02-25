@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if( sharedpreferences.contains("access_token") && sharedpreferences.getString("access_token", null) != null) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         // Set up the login form.
