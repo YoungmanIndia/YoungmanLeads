@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -32,7 +33,10 @@ public interface LeadsAPI {
     @GET("leadsNote/{id}")
     Call<ListWrapper<LeadNote>> getLeadNotes(@Path("id") int id);
 
-    @POST("leadsNote/")
-    Call<LeadTask> createUser(@Body LeadTask task);
+    @PUT("/leads/{id}")
+    Call<LeadNote> createLeadNote(@Path("id") int id, @Body LeadNote note);
+
+    @PUT("/leads/{id}")
+    Call<LeadTask> createLeadTask(@Path("id") int id, @Body LeadTask task);
 
 }

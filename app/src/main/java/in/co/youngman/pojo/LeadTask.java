@@ -30,6 +30,9 @@ public class LeadTask {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("type")
+    @Expose
+    private String type;
 
     /**
      * No args constructor for use in serialization
@@ -57,12 +60,14 @@ public class LeadTask {
         this.completed = completed;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.type = "task";
     }
 
     public LeadTask(String task, String remindAt) {
         this.task = task;
-        this.remindAt = remindAt;
+        this.remindAt = "2018-03-31 16:45:21";
         this.completed = 0;
+        this.type = "task";
     }
 
     public Integer getId() {

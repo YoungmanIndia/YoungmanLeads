@@ -69,28 +69,6 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        createUI(view);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        fillUI();
-    }
-
-    private void fillUI() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (token != null) {
-            authenticateButton.setEnabled(false);
-        }
-    }
-
-    private void createUI(View view) {
         authenticateButton = (Button) view.findViewById(R.id.authenticate_button);
 
         recyclerView = view.findViewById(R.id.list);
@@ -99,6 +77,19 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
         createLeadsAPI();
         leadsAPI.getLeads().enqueue(leadsCallback);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (token != null) {
+            authenticateButton.setEnabled(false);
+        }
     }
 
     private void createLeadsAPI() {
@@ -125,7 +116,7 @@ public class LeadsFragment extends Fragment implements LeadsInterfaceMVP.View, V
 
                getLeads(data);
             } else {
-                Log.d("QuestionsCallback", "Code: " + response.code() + " Message: " + response.message());
+                Log.d("LeadsCallback", "Code: " + response.code() + " Message: " + response.message());
             }
         }
 

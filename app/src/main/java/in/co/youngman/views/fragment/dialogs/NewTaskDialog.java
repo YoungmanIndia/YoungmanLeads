@@ -21,7 +21,7 @@ import in.co.youngman.pojo.LeadTask;
  * Created by vikasmahato on 24/02/18.
  */
 
-public class FullscreenDialog extends DialogFragment implements View.OnClickListener{
+public class NewTaskDialog extends DialogFragment implements View.OnClickListener{
     public static final String TAG = "FullScreenDialog";
     private EditText mEditText;
     private Button mButton;
@@ -40,7 +40,7 @@ public class FullscreenDialog extends DialogFragment implements View.OnClickList
                 int year = mDatepicker.getYear();
 
 
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy");
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date d = new Date(year, month, day);
                 String strDate = dateFormatter.format(d);
 

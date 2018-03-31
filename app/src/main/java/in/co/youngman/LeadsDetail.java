@@ -118,10 +118,22 @@ public class LeadsDetail extends AppCompatActivity implements AdapterView.OnItem
 
     }
     private void setupViewPager(ViewPager viewPager) {
+        Bundle bundle = new Bundle();
+        bundle.putString("leadKey", leadKey);
+
+        LeadNotesFragment leadNotesFragment = new LeadNotesFragment();
+        leadNotesFragment.setArguments(bundle);
+
+        LeadTaskFragment leadTaskFragment = new LeadTaskFragment();
+        leadTaskFragment.setArguments(bundle);
+
+        LeadTimelineFragment leadTimelineFragment = new LeadTimelineFragment();
+        leadTimelineFragment.setArguments(bundle);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LeadTaskFragment(), "Task");
-        adapter.addFragment(new LeadNotesFragment(), "Notes");
-        adapter.addFragment(new LeadTimelineFragment(), "Timeline");
+        adapter.addFragment(leadTaskFragment, "Task");
+        adapter.addFragment(leadNotesFragment, "Notes");
+        adapter.addFragment(leadTimelineFragment, "Timeline");
         viewPager.setAdapter(adapter);
     }
 

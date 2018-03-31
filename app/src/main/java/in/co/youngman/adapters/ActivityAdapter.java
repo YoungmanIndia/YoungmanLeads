@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -43,15 +44,17 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ActivityAdapter.ViewHolder holder, int position) {
-        final LeadActivity activity = ((LeadActivity) data.get(position));
-        holder.text.setText(activity.getActivity());
-        holder.itemView.setTag(activity.getId());
+        final LeadActivity note = ((LeadActivity) data.get(position));
+        Toast.makeText(context, "called", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, note.getActivity(), Toast.LENGTH_SHORT).show();
+        holder.text.setText(note.getActivity());
+        holder.itemView.setTag(note.getId());
 
     }
 
     @Override
     public int getItemCount() {
+        //Toast.makeText(context, String.valueOf(data.size()), Toast.LENGTH_SHORT).show();
         return data.size();
     }
 }
-

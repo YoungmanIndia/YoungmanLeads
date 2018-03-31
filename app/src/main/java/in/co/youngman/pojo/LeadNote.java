@@ -31,6 +31,10 @@ public class LeadNote {
     @Expose
     private String updatedAt;
 
+    @SerializedName("type")
+    @Expose
+    private String type;
+
     /**
      * No args constructor for use in serialization
      *
@@ -57,6 +61,14 @@ public class LeadNote {
         this.noteValue = noteValue;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.type = "note";
+    }
+
+    public LeadNote(Integer leadsId, String noteValue){
+        this.leadsId = leadsId;
+        this.noteType = "test";
+        this.noteValue = noteValue;
+        this.type = "note";
     }
 
     public Integer getId() {
