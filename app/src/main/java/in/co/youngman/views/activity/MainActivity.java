@@ -1,4 +1,4 @@
-package in.co.youngman;
+package in.co.youngman.views.activity;
 
 
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.co.youngman.R;
 import in.co.youngman.views.fragment.DealsFragment;
 import in.co.youngman.views.fragment.LeadsFragment;
 import in.co.youngman.views.fragment.QuotationFragment;

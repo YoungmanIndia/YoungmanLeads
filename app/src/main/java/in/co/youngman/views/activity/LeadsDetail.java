@@ -1,4 +1,4 @@
-package in.co.youngman;
+package in.co.youngman.views.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.co.youngman.R;
 import in.co.youngman.pojo.Leads;
 import in.co.youngman.rest.LeadsAPI;
 import in.co.youngman.views.fragment.LeadNotesFragment;

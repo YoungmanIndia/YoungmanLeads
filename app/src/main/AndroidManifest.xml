@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.activity.MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".views.activity.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +30,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LeadsDetail"
+            android:name=".views.activity.LeadsDetail"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.activity.QuotationActivity" />
+        <activity android:name=".views.activity.NewCustomerActivity" />
+        <activity android:name=".views.activity.SearchCustomer"></activity>
     </application>
 
 </manifest>

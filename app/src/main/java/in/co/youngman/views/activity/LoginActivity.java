@@ -1,4 +1,4 @@
-package in.co.youngman;
+package in.co.youngman.views.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -36,6 +36,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.co.youngman.R;
 import in.co.youngman.pojo.AccessToken;
 import in.co.youngman.pojo.ClientCreds;
 import in.co.youngman.rest.UserClient;

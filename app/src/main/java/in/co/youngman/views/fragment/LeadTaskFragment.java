@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,10 +20,9 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.co.youngman.LeadsDetail;
+import in.co.youngman.views.activity.LeadsDetail;
 import in.co.youngman.R;
 import in.co.youngman.adapters.TasksAdapter;
-import in.co.youngman.pojo.LeadNote;
 import in.co.youngman.pojo.LeadTask;
 import in.co.youngman.rest.LeadsAPI;
 import in.co.youngman.rest.ListWrapper;

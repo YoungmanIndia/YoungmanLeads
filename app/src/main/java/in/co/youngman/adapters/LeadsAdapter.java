@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import in.co.youngman.LeadsDetail;
+import in.co.youngman.views.activity.LeadsDetail;
 import in.co.youngman.pojo.Leads;
 
 
