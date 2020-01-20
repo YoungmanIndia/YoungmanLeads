@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -39,12 +40,12 @@ import java.util.List;
 import in.co.youngman.R;
 import in.co.youngman.pojo.AccessToken;
 import in.co.youngman.pojo.ClientCreds;
+import in.co.youngman.rest.RetrofitClient;
 import in.co.youngman.rest.UserClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -68,13 +69,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
-    public static final String BASE_URL = "http://ec2-35-154-163-176.ap-south-1.compute.amazonaws.com/";
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mEmailView, R.string.permission_rationale, BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -329,9 +323,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             ClientCreds clientCreds = new ClientCreds(mEmail, mPassword);
+            Retrofit retrofit = RetrofitClient.getRetrofitClient();
             UserClient apiService = retrofit.create(UserClient.class);;
             Call<AccessToken> call = apiService.getToken(clientCreds);
             call.enqueue(new Callback<AccessToken>() {
@@ -346,7 +340,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putLong("expires_in", response.body().getExpiresIn()); // Storing string
                         editor.putString("access_token", response.body().getAccessToken()); // Storing integer
                         editor.putString("refresh_token", response.body().getRefreshToken()); // Storing float
-                        editor.commit();
+                        editor.apply();
                     }
                     else{
                         Toast.makeText(LoginActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
@@ -370,7 +364,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-               // finish();
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

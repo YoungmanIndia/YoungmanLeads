@@ -1,5 +1,6 @@
 package in.co.youngman.rest;
 
+import in.co.youngman.BuildConfig;
 import in.co.youngman.pojo.Customer;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -11,7 +12,7 @@ import retrofit2.http.POST;
  */
 
 public interface CustomerAPI {
-    String BASE_URL = "http://ec2-35-154-163-176.ap-south-1.compute.amazonaws.com/";
+    String BASE_URL = BuildConfig.YOUNGMANBETA_SERVER_URL;
 
     @GET("/customers_api")
     Call<ListWrapper<Customer>> getCustomers();

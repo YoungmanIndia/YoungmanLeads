@@ -1,11 +1,13 @@
 package in.co.youngman.rest;
 
+import in.co.youngman.BuildConfig;
+
 /**
  * Created by vikasmahato on 01/04/18.
  */
 
 public interface QuotationAPI {
-    String BASE_URL = "http://ec2-35-154-163-176.ap-south-1.compute.amazonaws.com/";
+    String BASE_URL = BuildConfig.YOUNGMANBETA_SERVER_URL;
 
     // Create Cutomer on Quickbooks
 

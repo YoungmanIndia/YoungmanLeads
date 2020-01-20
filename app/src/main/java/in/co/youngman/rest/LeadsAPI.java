@@ -1,5 +1,6 @@
 package in.co.youngman.rest;
 
+import in.co.youngman.BuildConfig;
 import in.co.youngman.pojo.LeadActivity;
 import in.co.youngman.pojo.LeadNote;
 import in.co.youngman.pojo.LeadTask;
@@ -15,7 +16,7 @@ import retrofit2.http.Path;
  */
 
 public interface LeadsAPI {
-    String BASE_URL = "http://ec2-35-154-163-176.ap-south-1.compute.amazonaws.com/";
+    String BASE_URL = BuildConfig.YOUNGMANBETA_SERVER_URL;
 
     @GET("/leads")
     Call<ListWrapper<Leads>> getLeads();

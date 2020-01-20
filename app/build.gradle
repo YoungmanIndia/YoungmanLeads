@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -10,6 +14,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField("String", "YOUNGMANBETA_SERVER_URL", apikeyProperties['YOUNGMANBETA_SERVER_URL'])
+        buildConfigField("String", "YOUNGMANBETA_API_KEY", apikeyProperties['YOUNGMANBETA_API_KEY'])
+        buildConfigField("Integer", "YOUNGMANBETA_CLIENT_ID", apikeyProperties['YOUNGMANBETA_CLIENT_ID'])
     }
     buildTypes {
         release {
@@ -31,16 +38,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    compile 'com.android.support:recyclerview-v7:26.0.0-beta1'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'com.android.support:recyclerview-v7:26.0.0-beta1'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.android.support:cardview-v7:26.0.0-beta1'
-
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.0.0-RC1"
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.squareup.okhttp3:okhttp-urlconnection:3.8.1"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
 }
